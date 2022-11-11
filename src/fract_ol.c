@@ -6,19 +6,21 @@
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/04 17:00:26 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:26:51 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract_ol.h"
+#include "../fract_ol.h"
 
 int	main(int ac, char **av)
 {
 	t_a arg;
 
+	if (ac != 2)
+		return (0);
 	mlx_ignition(&arg);
     
-    if (*av[1] == 'a')
+    if (*av[1] == 'm')
         mandelbrot(&arg);
 
     cross(&arg);

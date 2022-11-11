@@ -6,11 +6,11 @@
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/04 16:58:39 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:26:27 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract_ol.h"
+#include "../fract_ol.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {

@@ -6,11 +6,11 @@
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/04 17:18:16 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:35:05 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract_ol.h"
+#include "../fract_ol.h"
 
 void    mandelbrot(t_a *arg)
 {
@@ -34,7 +34,7 @@ void    mandelbrot(t_a *arg)
                 arg->nb.zy += arg->nb.j;
                 arg->nb.zx += arg->nb.k;
                 if (arg->nb.zx * arg->nb.zx + arg->nb.zy * arg->nb.zy < 4)
-                    my_mlx_pixel_put(&arg->data, arg->nb.x - 250, arg->nb.y + 190, (arg->nb.n * arg->nb.n * 255));
+                    my_mlx_pixel_put(&arg->data, arg->nb.x - 250, arg->nb.y + 190, arg->nb.n * arg->nb.n * 100000);
             }
             arg->nb.x++;
             arg->nb.j += 0.00123;

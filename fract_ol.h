@@ -6,7 +6,7 @@
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/04 17:14:39 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:27:15 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include "../mlx_linux/mlx.h"
+# include "mlx_linux/mlx.h"
 
 typedef struct	m_number
 {
@@ -48,7 +48,7 @@ typedef struct t_arg
 	t_data	data;
 	void	*wdw;
 	void	*mlx;
-}t_a;
+}	t_a;
 
 
 void    mandelbrot(t_a *arg);

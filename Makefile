@@ -3,56 +3,42 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ralves-g <ralves-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: danierod <danierod@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/26 16:26:20 by ralves-g          #+#    #+#              #
-#    Updated: 2022/11/04 17:05:04 by danierod         ###   ########.fr        #
+#    Created: 2021/10/26 16:26:20 by danierod          #+#    #+#              #
+#    Updated: 2022/11/09 21:45:23 by danierod         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror 
-#-fsanitize=leak
-MLXFLAGS	=	-lmlx -framework OpenGL -framework AppKit
-MLX_LINUX	=	-Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-RM			=	rm -f
+NAME = fract_ol
 
-NAME		=	fract_ol
-NAME2		=	fract_ol_linux
+SRC_PATH = src/
+OBJECTS_NAME = $(SRC_NAME:.c=.o)
+CC = gcc
 
-INCLUDE		=	-I ./
-SRCS_		=	$(src/*.c)
-SRCS		=	$(addprefix $(_SRC), $(SRCS_))
+RM = rm -rf
+SOURCES = $(wildcard src/*.c)
+OBJECTS = $(SOURCES:.c=.o)
+LDLIBS = -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm #-fsanitize=address
 
-_OBJ		=	./obj/
-_SRC		= 	./src/
-OBJS		=	$(patsubst $(_SRC)%.c, $(_OBJ)%.o, $(SRCS))
+%.o:		%.c
+			$(CC) $(LDLIBS) -c $^ -o $@
 
-
-all:		$(NAME)
+all: $(NAME)
 	
-$(_OBJ)%.o: $(_SRC)%.c
-	$(CC) -c $< -o $@
+%.o: %.c
+	@$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
-# $(NAME): $(_OBJ) $(OBJS)
-# 	$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) -o $(NAME) $(INCLUDE)
-
-# linux:		$(NAME2)
-
-$(NAME): $(_OBJ) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_LINUX) -o $(NAME) $(INCLUDE)
+$(NAME): $(OBJECTS)
+	-@$(CC) $(OBJECTS) $(LDLIBS) -o $(NAME)
+	@mv $(OBJECTS) objects/
 	
-#bonus:		$(SRCS_B) $(OBJS_B)
-#			$(CC) $(CFLAGS) $(SRCS_B) -o $(NAME_B)
-#			$(CC) $(CFLAGS) $(SRCS_B) -c
-
-$(_OBJ):
-	mkdir $@
-
 clean:
-	$(RM) -r $(_OBJ)
+	@$(RM) objects/*.o
 
 fclean:	clean
-	$(RM) $(NAME) $(NAME2)
+	@$(RM) $(NAME)
 
-re:	fclean all
+re: fclean all
+
+.PHONY: all clean fclean re
