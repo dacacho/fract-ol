@@ -6,7 +6,7 @@
 #    By: danierod <danierod@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/26 16:26:20 by danierod          #+#    #+#              #
-#    Updated: 2022/11/09 21:45:23 by danierod         ###   ########.fr        #
+#    Updated: 2022/11/11 16:38:48 by danierod         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CC = gcc
 RM = rm -rf
 SOURCES = $(wildcard src/*.c)
 OBJECTS = $(SOURCES:.c=.o)
+
 LDLIBS = -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm #-fsanitize=address
 
 %.o:		%.c
@@ -31,14 +32,14 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	-@$(CC) $(OBJECTS) $(LDLIBS) -o $(NAME)
-	@mv $(OBJECTS) objects/
 	
 clean:
-	@$(RM) objects/*.o
+	@$(RM) $(OBJECTS)
 
 fclean:	clean
 	@$(RM) $(NAME)
 
 re: fclean all
+	clear
 
 .PHONY: all clean fclean re
