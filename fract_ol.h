@@ -6,7 +6,7 @@
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/17 19:42:15 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/22 11:38:17 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include "mlx_linux/mlx.h"
 # include <X11/Xlib.h>
 
-# define RS 2000
+# define MI 50
+# define RS 1000
 
 typedef struct t_key
 {
@@ -69,20 +70,34 @@ typedef struct t_arg
 }	t_a;
 
 
-int	main_loop(t_a *arg);
+int    rec_jul(double real, double img, t_a *arg);
+void    julia(t_a *arg);
+void    julia_coord(t_a *arg);
 
-void	get_key(t_a *arg);
 void    mandelbrot(t_a *arg);
 int    rec_man(double real, double img, t_a *arg);
 void	mandel_coord(t_a *arg);
-void    circle(t_a *arg);
+
+
+int	leave(t_a *arg);
+
+void	get_key(t_a *arg);
 int	key_press(int key, t_a *arg);
-void    cross(t_a *arg);
+int	key_release(int key, t_a *arg);
+void    key_up(t_a *arg, int dir);
+void    key_down(t_a *arg, int dir);
+void    key_left(t_a *arg, int dir);
+void    key_right(t_a *arg, int dir);
+
 void	my_mlx_pixel_put(t_dt *data, int x, int y, int color);
 void    mlx_ignition(t_a *arg);
 
+void    circle(t_a *arg);
+void    cross(t_a *arg);
+
 void	set_coord(t_a *arg);
-//void	test(t_a *arg);
-//void    old_mandela(t_a *arg);
+
+
+int	pseudo_main(void);
 
 #endif
