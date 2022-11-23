@@ -6,54 +6,113 @@
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/22 11:38:11 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/23 20:13:59 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fract_ol.h"
 
-void	get_key(t_a *arg)
+void    nb_starting(t_a *arg)
 {
-	arg->key.w = 119;
+	arg->key.plus = 61;
+	arg->key.minus = 45;
+	arg->key.m_left = 1;
+	arg->key.m_up = 4;
+	arg->key.m_down = 5;
+    arg->key.w = 119;
 	arg->key.s = 115;
 	arg->key.a = 97;
 	arg->key.d = 100;
 	arg->key.esc = 65307;
+    arg->key.up = 65362;
+	arg->key.down = 65364;
+	arg->key.left = 65361;
+	arg->key.right = 65363;
+	arg->nb.mi = 20;
+	arg->nb.jx = 0;
+	arg->nb.jy = 0;
+	arg->nb.rs = 2000;
+	arg->nb.xoffset = 0;
+	arg->nb.yoffset = 0;
+	arg->nb.zoom = 0;	
 }
 
-int	leave(t_a *arg)
+void    pos_n_iter(t_a *arg, char dir, int vel, int opt)
 {
-	mlx_destroy_image(arg->mlx, arg->data.img);
-	mlx_destroy_window(arg->mlx, arg->wdw);
-	mlx_destroy_display(arg->mlx);
-	free(arg->mlx);
-	exit (0);
+	int add = 5;
+	if (vel)
+		add += 15;
+	if (opt == 0)
+	{
+		if (dir == 'w')
+			arg->nb.yoffset += add;
+		else if (dir == 's')
+			arg->nb.yoffset -= add;
+		else if (dir == 'a')
+			arg->nb.xoffset -= add;
+		else if (dir == 'd')
+			arg->nb.xoffset += add;
+	}
+	else if (opt == 1)
+	{
+		if (dir == '+')
+			arg->nb.mi += 5;
+		else if (dir == '-' && arg->nb.mi > 6)
+			arg->nb.mi -= 5;
+	}
+	refresh(arg);
+}
+
+int		mouse_press(int key,int x, int y, t_a *arg)
+{
+	(void)x;
+	(void)y;
+	printf("x: %i	y: %i\n", x, y);
+	if (key == arg->key.m_left)
+	{
+		mlx_mouse_get_pos(arg->mlx, arg->wdw, &x, &y);
+		arg->nb.jx = (x - arg->nb.rs / 2.0 + arg->nb.xoffset) / (300.0 + arg->nb.zoom);
+		arg->nb.jy = (arg->nb.rs / 2.0 - y + arg->nb.yoffset) / (300.0 + arg->nb.zoom);
+	}
+	else if (key == arg->key.m_up)
+	{
+		arg->nb.zoom += 100;
+		arg->nb.xoffset += (x - arg->nb.rs/2);
+		arg->nb.yoffset -= (y - arg->nb.rs/2);
+	}
+	else if (key == arg->key.m_down && arg->nb.zoom > 100)
+	{
+		arg->nb.zoom -= 100;
+		arg->nb.xoffset += (x - arg->nb.rs/2);
+		arg->nb.yoffset -= (y - arg->nb.rs/2);
+	}
+	refresh(arg);
+	return (0);
 }
 
 int     key_press(int key, t_a *arg)
 {
 	if (key == arg->key.esc)
 		leave(arg);
-	if (key == arg->key.w)
-		key_up(arg, 1);
+	else if (key == arg->key.up)
+		pos_n_iter(arg, 'w', 0, 0);
+	else if (key == arg->key.down)
+		pos_n_iter(arg, 's', 0, 0);
+	else if (key == arg->key.left)
+		pos_n_iter(arg, 'a', 0, 0);
+	else if (key == arg->key.right)
+		pos_n_iter(arg, 'd', 0, 0);
+	else if (key == arg->key.w)
+		pos_n_iter(arg, 'w', 1, 0);
 	else if (key == arg->key.s)
-		key_down(arg, 1);
+		pos_n_iter(arg, 's', 1, 0);
 	else if (key == arg->key.a)
-		key_left(arg, 1);
+		pos_n_iter(arg, 'a', 1, 0);
 	else if (key == arg->key.d)
-		key_right(arg, 1);
-	return (0);
-}
-
-int		key_release(int key, t_a *arg)
-{
-	if (key == arg->key.w)
-		key_up(arg, 0);
-	else if (key == arg->key.s)
-		key_down(arg, 0);
-	else if (key == arg->key.a)
-		key_left(arg, 0);
-	else if (key == arg->key.d)
-		key_right(arg, 0);
+		pos_n_iter(arg, 'd', 1, 0);
+	else if (key == arg->key.plus)
+		pos_n_iter(arg, '+', 0, 1);
+	else if (key == arg->key.minus)
+		pos_n_iter(arg, '-', 0, 1);
 	return (0);
 }

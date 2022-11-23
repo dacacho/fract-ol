@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractals.c                                       :+:      :+:    :+:   */
+/*   fractals.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/22 08:18:08 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/23 19:32:09 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 int    rec_jul(double real, double img, t_a *arg)
 {
     arg->nb.ir = real;
-    real = pow(real, 2.0) - pow(img, 2.0) + arg->nb.zx;
-	img = 2.0 * arg->nb.ir * img + arg->nb.zy; 
+    real = pow(real, 2.0) - pow(img, 2.0) + arg->nb.jx;
+	img = 2.0 * arg->nb.ir * img + arg->nb.jy; 
     if (pow(real, 2) + pow(img, 2) >= 4.0)
-        my_mlx_pixel_put(&arg->data, arg->nb.x, arg->nb.y, ((int)arg->nb.n * 255 / MI) << 8 | ((int)arg->nb.n * 255 / MI) << 0 | ((int)arg->nb.n * 255 / MI) << 8);
+        my_mlx_pixel_put(&arg->data, arg->nb.x, arg->nb.y, (arg->nb.n * 255 / arg->nb.mi) << 8 | (arg->nb.n * 255 / arg->nb.mi) << 0 | (arg->nb.n * 255 / arg->nb.mi) << 8);
     arg->nb.n++;
-    if (arg->nb.n == MI)
+    if (arg->nb.n == arg->nb.mi)
         return (0);
     return (rec_jul(real, img, arg));
 }
@@ -29,10 +29,10 @@ int    rec_jul(double real, double img, t_a *arg)
 void    julia(t_a *arg)
 {
     arg->nb.y = -1;
-    while (++arg->nb.y < RS)
+    while (++arg->nb.y < arg->nb.rs)
     {
         arg->nb.x = -1;
-        while (++arg->nb.x < RS)
+        while (++arg->nb.x < arg->nb.rs)
         {
             arg->nb.n = 0;
             julia_coord(arg);
@@ -47,9 +47,9 @@ int    rec_man(double real, double img, t_a *arg)
     real = pow(real, 2.0) - pow(img, 2.0) + arg->nb.zx;
 	img = 2.0 * arg->nb.ir * img + arg->nb.zy; 
     if (pow(real, 2) + pow(img, 2) >= 4.0)
-        my_mlx_pixel_put(&arg->data, arg->nb.x, arg->nb.y, ((int)arg->nb.n * 255 / MI) << 8 | ((int)arg->nb.n * 255 / MI) << 0 | ((int)arg->nb.n * 255 / MI) << 8);
+        my_mlx_pixel_put(&arg->data, arg->nb.x, arg->nb.y, (arg->nb.n * 255 / arg->nb.mi) << 8 | (arg->nb.n * 255 / arg->nb.mi) << 0 | (arg->nb.n * 255 / arg->nb.mi) << 8);
     arg->nb.n++;
-    if (arg->nb.n == MI)
+    if (arg->nb.n == arg->nb.mi)
         return (0);
     return (rec_man(real, img, arg));
 }
@@ -57,10 +57,10 @@ int    rec_man(double real, double img, t_a *arg)
 void    mandelbrot(t_a *arg)
 {
     arg->nb.y = -1;
-    while (++arg->nb.y < RS)
+    while (++arg->nb.y < arg->nb.rs)
     {
         arg->nb.x = -1;
-        while (++arg->nb.x < RS)
+        while (++arg->nb.x < arg->nb.rs)
         {
             arg->nb.n = 0;
             mandel_coord(arg);
