@@ -6,26 +6,18 @@
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/23 20:13:12 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/24 20:56:52 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fract_ol.h"
 
-int	leave(t_a *arg)
-{
-	mlx_destroy_image(arg->mlx, arg->data.img);
-	mlx_destroy_window(arg->mlx, arg->wdw);
-	mlx_destroy_display(arg->mlx);
-	free(arg->mlx);
-	exit (0);
-}
-
 void	refresh(t_a *arg)
 {
-	mlx_destroy_image(arg->mlx, arg->data.img);
+
+	/*mlx_destroy_image(arg->mlx, arg->data.img);
     arg->data.img = mlx_new_image(arg->mlx, arg->nb.rs, arg->nb.rs);
-    arg->data.addr = mlx_get_data_addr(arg->data.img, &arg->data.bits_per_pixel, &arg->data.line_length, &arg->data.endian);
+    arg->data.addr = mlx_get_data_addr(arg->data.img, &arg->data.bits_per_pixel, &arg->data.line_length, &arg->data.endian);*/
 	if (arg->f == 'm')
 		mandelbrot(arg);
 	else if (arg->f == 'j')
@@ -50,6 +42,41 @@ void    mandel_coord(t_a *arg)
 	arg->nb.zy = arg->nb.img;
 	arg->nb.ir = (arg->nb.x - arg->nb.rs / 2 ) / (200 + arg->nb.zoom);
 	arg->nb.ii = (arg->nb.rs / 2 - arg->nb.y) / (200 + arg->nb.zoom);
+}
+
+void	color(t_a *arg, int key)
+{
+	if (key == arg->key.one)
+	{
+		arg->nb.rb = 8;
+		arg->nb.gb = 0;
+		arg->nb.bb = 8;
+	}
+	else if (key == arg->key.two)
+	{
+		arg->nb.rb = 16;
+		arg->nb.gb = 0;
+		arg->nb.bb = 0;
+	}
+	else if (key == arg->key.three)
+	{
+		arg->nb.rb = 8;
+		arg->nb.gb = 8;
+		arg->nb.bb = 16;
+	}
+	else if (key == arg->key.four)
+	{
+		arg->nb.rb = 20;
+		arg->nb.gb = 30;
+		arg->nb.bb = 0;
+	}
+	else if (key == arg->key.five)
+	{
+		arg->nb.rb = 10;
+		arg->nb.gb = 15;
+		arg->nb.bb = 20;
+	}
+	refresh(arg);
 }
 
 void    cross(t_a *arg)

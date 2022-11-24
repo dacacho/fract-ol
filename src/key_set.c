@@ -6,7 +6,7 @@
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/23 20:13:59 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:27:11 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void    nb_starting(t_a *arg)
 {
+	arg->key.one = 49;
+	arg->key.two = 50;
+	arg->key.three = 51;
+	arg->key.four = 52;
+	arg->key.five = 53;
 	arg->key.plus = 61;
 	arg->key.minus = 45;
 	arg->key.m_left = 1;
@@ -23,18 +28,16 @@ void    nb_starting(t_a *arg)
 	arg->key.s = 115;
 	arg->key.a = 97;
 	arg->key.d = 100;
+	arg->key.j = 106;
+	arg->key.m = 109;
+	arg->key.n = 110;
 	arg->key.esc = 65307;
     arg->key.up = 65362;
 	arg->key.down = 65364;
 	arg->key.left = 65361;
 	arg->key.right = 65363;
 	arg->nb.mi = 20;
-	arg->nb.jx = 0;
-	arg->nb.jy = 0;
 	arg->nb.rs = 2000;
-	arg->nb.xoffset = 0;
-	arg->nb.yoffset = 0;
-	arg->nb.zoom = 0;	
 }
 
 void    pos_n_iter(t_a *arg, char dir, int vel, int opt)
@@ -67,7 +70,6 @@ int		mouse_press(int key,int x, int y, t_a *arg)
 {
 	(void)x;
 	(void)y;
-	printf("x: %i	y: %i\n", x, y);
 	if (key == arg->key.m_left)
 	{
 		mlx_mouse_get_pos(arg->mlx, arg->wdw, &x, &y);
@@ -114,5 +116,22 @@ int     key_press(int key, t_a *arg)
 		pos_n_iter(arg, '+', 0, 1);
 	else if (key == arg->key.minus)
 		pos_n_iter(arg, '-', 0, 1);
+	else if (key == arg->key.one || key == arg->key.two || key == arg->key.three || key == arg->key.four || key == arg->key.five)
+		color(arg, key);
+	else if (key == arg->key.m)
+	{
+		arg->f = 'm';
+		refresh(arg);
+	}
+	else if (key == arg->key.j)
+	{
+		arg->f = 'j';
+		refresh(arg);
+	}
+	else if (key == arg->key.n)
+	{
+		arg->f = 'n';
+		refresh(arg);
+	}
 	return (0);
 }

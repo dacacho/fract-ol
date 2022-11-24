@@ -6,13 +6,14 @@
 /*   By: danierod <danierod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:58 by danierod          #+#    #+#             */
-/*   Updated: 2022/11/23 20:14:16 by danierod         ###   ########.fr       */
+/*   Updated: 2022/11/24 20:55:51 by danierod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACT_OL_H
 # define FRACT_OL_H
 
+# include <unistd.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -21,6 +22,14 @@
 
 typedef struct t_key
 {
+	int j;
+	int m;
+	int n;
+	int	one;
+	int two;
+	int three;
+	int four;
+	int five;
 	int plus;
 	int	minus;
 	int m_left;
@@ -39,6 +48,9 @@ typedef struct t_key
 
 typedef struct	t_number
 {
+	int rb;
+	int gb;
+	int bb;
 	int rs;
 	int	n;
 	int mi;
@@ -100,11 +112,17 @@ int		mouse_press(int key, int x, int y, t_a *arg);
 
 void	my_mlx_pixel_put(t_dt *data, int x, int y, int color);
 void    mlx_ignition(t_a *arg);
-
+void	mlx_hooks(t_a *arg);
 void    circle(t_a *arg);
 void    cross(t_a *arg);
 
-void	set_coord(t_a *arg);
+void	color(t_a *arg, int key);
 
+int	check(char *s1, char *s2);
+void	key_map(void);
+void	warning(int opt);
+
+
+double	ch_db(const char *str);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: danierod <danierod@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/26 16:26:20 by danierod          #+#    #+#              #
-#    Updated: 2022/11/11 16:38:48 by danierod         ###   ########.fr        #
+#    Updated: 2022/11/24 15:37:18 by danierod         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fract_ol
 
 SRC_PATH = src/
 OBJECTS_NAME = $(SRC_NAME:.c=.o)
-CC = gcc
+CC = cc
 
 RM = rm -rf
 SOURCES = $(wildcard src/*.c)
