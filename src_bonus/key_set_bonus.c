@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fract_ol.h"
+#include "../fract_ol_bonus.h"
 
 void	key_starting(t_a *arg)
 {
